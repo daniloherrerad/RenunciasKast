@@ -65,6 +65,15 @@
   .tracker .strip .sl{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#a99fe0;margin-top:5px}
   .method{font-size:13px;color:#4a4370;margin-top:16px}
 
+  .changetracker{background:#fff;border:1px solid var(--line);border-radius:12px;margin-top:16px;padding:20px 24px;text-align:center}
+  .ct-label{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mid);margin-bottom:12px}
+  .ct-row{display:flex;justify-content:center}
+  .ct-cell{padding:0 20px;border-right:1px solid var(--lav-2)}
+  .ct-cell:last-child{border-right:none}
+  .ct-n{font-weight:900;font-size:clamp(30px,7vw,40px);line-height:1;color:var(--indigo);font-variant-numeric:tabular-nums}
+  .ct-l{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);margin-top:4px}
+  .ct-note{font-size:12px;color:var(--mid);margin-top:14px}
+
   /* ===== TABLE ===== */
   .sec-head h2{font-family:'Archivo Narrow';font-weight:700;text-transform:uppercase;letter-spacing:.02em;font-size:clamp(20px,3.6vw,26px);color:var(--indigo);line-height:1}
   .sec-head p{font-size:14px;color:#4a4370;margin-top:6px;max-width:64ch}
@@ -88,6 +97,7 @@
   .t-min{background:#e3defb;color:#3d2f8f}
   .t-sub{background:#dbeaf7;color:#2b5d86}
   .t-ser{background:#e9e6f5;color:#5a5194}
+  .t-del{background:#fbe4cc;color:#8a4b12}
   .reason{color:#3a3363;min-width:220px}
   .reason .jt{color:var(--alert);font-weight:700}
   .src a{color:var(--mid);font-weight:600;text-decoration:none;white-space:nowrap;border-bottom:1px solid var(--lav-2)}
@@ -133,7 +143,7 @@
     </div>
     <div class="sh-meta">
       <div><b>Fuente</b> Prensa</div>
-      <div><b>Actualización</b> 14 ago 2026</div>
+      <div><b>Actualización</b> 15 ago 2026</div>
     </div>
   </div>
 </header>
@@ -142,14 +152,26 @@
 <header class="hero">
   <div class="wrap">
     <div class="tracker">
-      <div class="meta">Actualizado al 14 de agosto de 2026</div>
-      <div class="big">42</div>
+      <div class="meta">Actualizado al 15 de agosto de 2026</div>
+      <div class="big">43</div>
       <div class="cap">autoridades que dejaron su cargo en el gobierno de Kast</div>
       <div class="strip">
         <div><div class="sn">3</div><div class="sl">ministras</div></div>
         <div><div class="sn">6</div><div class="sl">subsecretarios</div></div>
         <div><div class="sn">33</div><div class="sl">seremis</div></div>
+        <div><div class="sn">1</div><div class="sl">delegados provinciales</div></div>
+        <div style="display:flex;align-items:baseline;gap:7px;flex-wrap:wrap"><span class="sl" style="margin-top:0">Un cambio cada</span><span class="sn" id="avgDias" style="font-size:24px">—</span><span class="sl" style="margin-top:0">días</span></div>
       </div>
+    </div>
+    <div class="changetracker">
+      <div class="ct-label">Tiempo sin una nueva salida</div>
+      <div class="ct-row">
+        <div class="ct-cell"><div class="ct-n" id="cDays">0</div><div class="ct-l">días</div></div>
+        <div class="ct-cell"><div class="ct-n" id="cHours">00</div><div class="ct-l">horas</div></div>
+        <div class="ct-cell"><div class="ct-n" id="cMins">00</div><div class="ct-l">min</div></div>
+        <div class="ct-cell"><div class="ct-n" id="cSecs">00</div><div class="ct-l">seg</div></div>
+      </div>
+      <div class="ct-note">Desde la renuncia del delegado provincial de Chañaral, 14 ago 21:00</div>
     </div>
     <p class="method">Incluye renuncias, remociones, cambios de puesto y nombramientos que no llegaron a concretarse. Cada caso enlaza a una fuente de prensa.</p>
   </div>
@@ -161,7 +183,7 @@
     <div class="sec-head">
       <div class="eyebrow">Registro completo</div>
       <h2>Todas las salidas</h2>
-      <p>Filtra por cargo o región, o busca por nombre.</p>
+      <p>Filtra por cargo, región o ministerio, o busca por nombre.</p>
     </div>
     <div class="panel">
       <div class="controls">
@@ -171,8 +193,10 @@
           <option value="Ministra">Ministras</option>
           <option value="Subsecretario">Subsecretarios</option>
           <option value="Seremi">Seremis</option>
+          <option value="Delegado Provincial">Delegados</option>
         </select>
         <select id="fReg" aria-label="Filtrar por región"></select>
+        <select id="fMin" aria-label="Filtrar por ministerio"></select>
         <button id="btnClear" class="btn-clear" hidden aria-label="Limpiar filtros">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
           Limpiar filtros
@@ -220,10 +244,11 @@
 
 <script>
 // ===== ÚNICO BLOQUE A EDITAR CUANDO HAYA UNA NUEVA SALIDA =====
-// tipo: "Ministra" | "Subsecretario" | "Seremi"
+// tipo: "Ministra" | "Subsecretario" | "Seremi" | "Delegado Provincial"
 // sk: clave de orden (mes*100+día). Sin fecha = 0 (va al final)
 // jud: true si hay causa/investigación judicial
 const D = [
+  {n:"Sebastián Urrejola", tipo:"Delegado Provincial", terr:"Atacama", terrLabel:"Atacama (Chañaral)", min:"Interior", fecha:"14 ago", sk:814, jud:false, sexo:"m", razon:"Renuncia pedida por el Gobierno luego que la Contraloría Regional de Atacama acreditara la ocupación ilegal de un inmueble fiscal en Portofino, Chañaral", medio:"Chilevisión", url:"https://www.chilevision.cl/noticias/nacional/gobierno-pide-renuncia-de-delegado-de-chanaral-por-ocupacion-ilegal-de-terreno-fiscal/"},
   {n:"Natalia Duco", tipo:"Ministra", terr:"Nacional", min:"Deporte", fecha:"14 ago", sk:814, jud:false, sexo:"f", razon:"Renuncia en medio de una investigación de Contraloría por el uso de un vehículo fiscal en una actividad nocturna privada, tras conocerse un video que contradice su versión", medio:"T13", url:"https://www.t13.cl/noticia/politica/natalia-duco-renuncia-como-ministra-del-deporte-junto-al-subsecretario-andres-o-13-8-2026"},
   {n:"Andrés Otero", tipo:"Subsecretario", terr:"Nacional", min:"Deporte", fecha:"14 ago", sk:814, jud:false, sexo:"m", razon:"Renuncia junto a la ministra Duco", medio:"T13", url:"https://www.t13.cl/noticia/politica/natalia-duco-renuncia-como-ministra-del-deporte-junto-al-subsecretario-andres-o-13-8-2026"},
   {n:"Evelyn Bintrup", tipo:"Seremi", terr:"Los Lagos", min:"Salud", fecha:"11 ago", sk:811, jud:false, razon:"Renuncia pedida por el Minsal en medio de denuncias por Ley Karin (acoso laboral) en su contra", medio:"BioBío", url:"https://www.biobiochile.cl/noticias/nacional/region-de-los-lagos/2026/08/11/minsal-solicita-la-renuncia-a-seremi-de-salud-en-los-lagos-que-enfrenta-denuncias-por-ley-karin.shtml"},
@@ -240,7 +265,7 @@ const D = [
   {n:"Jorge Carrillo", tipo:"Seremi", terr:"Ñuble", min:"Salud", fecha:"12 jun", sk:612, jud:false, razon:"Sin motivo público detallado", medio:"T13", url:"https://www.t13.cl/noticia/politica/tras-renuncia-seremi-estas-son-todas-las-bajas-del-gobierno-regiones-18-7-2026"},
   {n:"Andrés Jouannet", tipo:"Subsecretario", sexo:"m", terr:"Nacional", min:"Seguridad Pública", fecha:"2 jun", sk:602, jud:false, razon:"Removido tras la llegada de Arrau al ministerio", medio:"El Mostrador", url:"https://www.elmostrador.cl/noticias/pais/2026/06/02/terremoto-en-seguridad-ministro-arrau-pide-la-renuncia-de-subsecretarios-jouannet-y-quintana/"},
   {n:"Antaris Varela", tipo:"Seremi", terr:"Biobío", min:"Mujer", fecha:"2 jun", sk:602, jud:false, razon:"Cambio de puesto. Dejó la subrogancia de la seremi tras 64 días para asumir como coordinadora regional de Senama", medio:"Sabes", url:"https://sabes.cl/2026/06/02/designan-a-coordinadora-regional-de-senama-en-el-biobio/"},
-  {n:"Ana Victoria Quintana", tipo:"Subsecretario", sexo:"f", terr:"Nacional", min:"Prevención del Delito", fecha:"2 jun", sk:602, jud:false, razon:"Removida tras la llegada de Arrau al ministerio", medio:"El Mostrador", url:"https://www.elmostrador.cl/noticias/pais/2026/06/02/terremoto-en-seguridad-ministro-arrau-pide-la-renuncia-de-subsecretarios-jouannet-y-quintana/"},
+  {n:"Ana Victoria Quintana", tipo:"Subsecretario", sexo:"f", terr:"Nacional", min:"Seguridad Pública", minLabel:"Seguridad Pública (Prevención del Delito)", fecha:"2 jun", sk:602, jud:false, razon:"Removida tras la llegada de Arrau al ministerio", medio:"El Mostrador", url:"https://www.elmostrador.cl/noticias/pais/2026/06/02/terremoto-en-seguridad-ministro-arrau-pide-la-renuncia-de-subsecretarios-jouannet-y-quintana/"},
   {n:"Verónica Figueroa", tipo:"Seremi", terr:"Aysén", min:"Transportes", fecha:"31 may", sk:531, jud:false, razon:"Renuncia tras un incidente con Carabineros en Coyhaique", medio:"El Divisadero", url:"https://www.eldivisadero.cl/_noticia/Ver%C3%B3nica-Figueroa-presenta-su-renuncia-a-la-Seremi-de-Transportes/ODI5OTg="},
   {n:"Trinidad Steinert", tipo:"Ministra", sexo:"f", terr:"Nacional", min:"Seguridad Pública", fecha:"19 may", sk:519, jud:false, razon:"Cuestionada por falta de gestión y ausencia de plan de seguridad", medio:"Diario Financiero", url:"https://www.df.cl/economia-y-politica/gobierno/primer-cambio-de-gabinete-del-gobierno-de-kast-salen-las-ministras"},
   {n:"Mara Sedini", tipo:"Ministra", sexo:"f", terr:"Nacional", min:"Segegob", fecha:"19 may", sk:519, jud:false, razon:"Cuestionada por el manejo comunicacional del Ejecutivo", medio:"Publimetro", url:"https://www.publimetro.cl/noticias/2026/05/19/steinert-y-sedini-fuera-kast-concreta-el-cambio-de-gabinete-mas-rapido-desde-el-retorno-a-la-democracia/"},
@@ -248,7 +273,7 @@ const D = [
   {n:"Camila Alonso", tipo:"Seremi", terr:"Antofagasta", min:"Bienes Nacionales", fecha:"6 may", sk:506, jud:false, razon:"Sin motivo público detallado", medio:"T13", url:"https://www.t13.cl/noticia/politica/tras-renuncia-seremi-estas-son-todas-las-bajas-del-gobierno-regiones-18-7-2026"},
   {n:"Diego Muñoz", tipo:"Seremi", terr:"Tarapacá", min:"Bienes Nacionales", fecha:"1 may", sk:501, jud:false, razon:"Sin motivo público detallado", medio:"T13", url:"https://www.t13.cl/noticia/politica/tras-renuncia-seremi-estas-son-todas-las-bajas-del-gobierno-regiones-18-7-2026"},
   {n:"Viviana Torres", tipo:"Seremi", terr:"Coquimbo", min:"Trabajo", fecha:"21 abr", sk:421, jud:false, razon:"Nombrada sin cumplir requisitos académicos. Duró menos de un mes", medio:"BioBío", url:"https://www.biobiochile.cl/noticias/servicios/toma-nota/2026/04/21/estos-son-todos-los-seremis-del-gobierno-que-han-renunciado-o-no-pudieron-asumir-ya-van-18-en-total.shtml"},
-  {n:"Mario Sepúlveda", tipo:"Seremi", terr:"Araucanía", min:"Seguridad", fecha:"17 abr", sk:417, jud:false, razon:"Nombrado el 1 de abril. Reemplazado por Luis Calderón el 17 de abril", medio:"DPR Araucanía", url:"https://dprlaaraucania.dpr.gob.cl/noticias/luis-calderon-asume-como-seremi-de-seguridad-en-la-araucania/"},
+  {n:"Mario Sepúlveda", tipo:"Seremi", terr:"Araucanía", min:"Seguridad Pública", fecha:"17 abr", sk:417, jud:false, razon:"Nombrado el 1 de abril. Reemplazado por Luis Calderón el 17 de abril", medio:"DPR Araucanía", url:"https://dprlaaraucania.dpr.gob.cl/noticias/luis-calderon-asume-como-seremi-de-seguridad-en-la-araucania/"},
   {n:"Patrick Dungan", tipo:"Seremi", terr:"Araucanía", min:"Energía", fecha:"15 abr", sk:415, jud:false, razon:"Nombramiento retirado tras perder contacto con la autoridad", medio:"BioBío", url:"https://www.biobiochile.cl/noticias/bbcl-explica/bbcl-explica-notas/2026/04/15/seremi-se-busca-ya-van-15-autoridades-de-kast-que-renunciaron-o-no-pueden-asumir.shtml"},
   {n:"Renato Münster", tipo:"Seremi", terr:"Metropolitana", min:"Culturas", fecha:"15 abr", sk:415, jud:false, razon:"Dimitió un día después de asumir. Motivos personales tras viralizarse posteos contra Kast", medio:"BioBío", url:"https://www.biobiochile.cl/noticias/bbcl-explica/bbcl-explica-notas/2026/04/15/seremi-se-busca-ya-van-15-autoridades-de-kast-que-renunciaron-o-no-pueden-asumir.shtml"},
   {n:"Gustavo Baehr", tipo:"Seremi", terr:"Metropolitana", min:"Culturas", fecha:"14 abr", sk:414, jud:false, razon:"Cesado por falta de experiencia en el ámbito cultural", medio:"BioBío", url:"https://www.biobiochile.cl/noticias/bbcl-explica/bbcl-explica-notas/2026/04/15/seremi-se-busca-ya-van-15-autoridades-de-kast-que-renunciaron-o-no-pueden-asumir.shtml"},
@@ -269,59 +294,103 @@ const D = [
 ];
 // =============================================================
 
-const tagClass = t => t==="Ministra"?"t-min":t==="Subsecretario"?"t-sub":"t-ser";
+const tagClass = t => t==="Ministra"?"t-min":t==="Subsecretario"?"t-sub":t==="Delegado Provincial"?"t-del":"t-ser";
 const cargoLabel = d => d.tipo==="Ministra" ? (d.sexo==="m"?"Ministro":"Ministra")
                       : d.tipo==="Subsecretario" ? (d.sexo==="f"?"Subsecretaria":"Subsecretario")
+                      : d.tipo==="Delegado Provincial" ? (d.sexo==="f"?"Delegada Provincial":"Delegado Provincial")
                       : "Seremi";
-D.sort((a,b)=> b.sk - a.sk);
+// Orden de precedencia protocolar de gabinete (Interior primero, Ciencia al final).
+// Se usa solo como desempate entre salidas de una misma fecha; el orden principal sigue siendo cronológico.
+const ORDEN_MIN=["Interior","Relaciones Exteriores","Defensa","Hacienda","Seguridad Pública","Segpres","Segegob","Economía","Desarrollo Social","Educación","Justicia","Trabajo","Obras Públicas","Salud","Vivienda","Agricultura","Minería","Transportes","Bienes Nacionales","Energía","Medio Ambiente","Culturas","Deporte","Mujer","Ciencia"];
+function importancia(d){
+  if(d.tipo==="Delegado Provincial") return -1; // autoridad regional, no forma parte del gabinete: siempre primero en su fecha
+  const i=ORDEN_MIN.indexOf(d.min);
+  return i<0?999:i;
+}
+D.sort((a,b)=> b.sk - a.sk || importancia(a)-importancia(b));
 
 // TABLE
 const tbody=document.getElementById('tbody'), q=document.getElementById('q'),
       fTipo=document.getElementById('fTipo'), fReg=document.getElementById('fReg'),
+      fMin=document.getElementById('fMin'),
       countRow=document.getElementById('countRow'), btnClear=document.getElementById('btnClear');
 const GEO=["Arica y Parinacota","Tarapacá","Antofagasta","Atacama","Coquimbo","Valparaíso","Metropolitana","O'Higgins","Maule","Ñuble","Biobío","Araucanía","Los Ríos","Los Lagos","Aysén","Magallanes"];
 function buildRegions(){
   const prev=fReg.value, tt=fTipo.value;
   fReg.innerHTML='';
   const showNacional=(tt===''||tt==='Ministra'||tt==='Subsecretario');
-  const showRegions=(tt===''||tt==='Seremi');
+  const showRegions=(tt===''||tt==='Seremi'||tt==='Delegado Provincial');
   if(showNacional) fReg.appendChild(new Option("Nacional","Nacional"));
   fReg.appendChild(new Option("Todas las regiones",""));
   if(showRegions) GEO.forEach(r=>fReg.appendChild(new Option(r,r)));
   fReg.value=[...fReg.options].some(o=>o.value===prev)?prev:"";
 }
 buildRegions();
+function ordenMin(m){
+  const i=ORDEN_MIN.indexOf(m);
+  return i<0?999:i;
+}
+function buildMinistries(){
+  fMin.innerHTML='';
+  fMin.appendChild(new Option("Todos los ministerios",""));
+  [...new Set(D.map(d=>d.min))]
+    .sort((a,b)=> ordenMin(a)-ordenMin(b) || a.localeCompare(b,'es'))
+    .forEach(m=>fMin.appendChild(new Option(m,m)));
+}
+buildMinistries();
 function render(){
-  const term=q.value.trim().toLowerCase(), tt=fTipo.value, rr=fReg.value;
+  const term=q.value.trim().toLowerCase(), tt=fTipo.value, rr=fReg.value, mm=fMin.value;
   const rows=D.filter(d=>{
-    const hit=!term||[d.n,d.terr,d.min].join(' ').toLowerCase().includes(term);
-    return hit&&(!tt||d.tipo===tt)&&(!rr||d.terr===rr);
+    const hit=!term||[d.n,d.terrLabel||d.terr,d.minLabel||d.min].join(' ').toLowerCase().includes(term);
+    return hit&&(!tt||d.tipo===tt)&&(!rr||d.terr===rr)&&(!mm||d.min===mm);
   });
   tbody.innerHTML=rows.map(d=>`
     <tr>
       <td class="date">${d.fecha}</td>
       <td><span class="name">${d.n}</span></td>
       <td><span class="tag ${tagClass(d.tipo)}">${cargoLabel(d)}</span></td>
-      <td>${d.terr}</td>
-      <td>${d.min}</td>
+      <td>${d.terrLabel||d.terr}</td>
+      <td>${d.minLabel||d.min}</td>
       <td class="reason">${d.razon}</td>
       <td class="src">${d.url?`<a href="${d.url}" target="_blank" rel="noopener">${d.medio}</a>`:`<span class="nolink">${d.medio}</span>`}</td>
     </tr>`).join('')||`<tr><td colspan="7" style="padding:24px;text-align:center;color:#948dbb">${rr&&!term&&!tt?'No existen casos en esta región.':'Sin resultados para ese filtro.'}</td></tr>`;
   countRow.textContent=`Mostrando ${rows.length} de ${D.length} salidas`;
-  btnClear.hidden = !(term||tt||rr);
+  btnClear.hidden = !(term||tt||rr||mm);
 }
-[q,fReg].forEach(el=>el.addEventListener('input',render));
+[q,fReg,fMin].forEach(el=>el.addEventListener('input',render));
 fTipo.addEventListener('change',()=>{ buildRegions(); render(); });
-btnClear.addEventListener('click',()=>{ q.value=''; fTipo.value=''; buildRegions(); fReg.value=''; render(); });
+btnClear.addEventListener('click',()=>{ q.value=''; fTipo.value=''; buildRegions(); fReg.value=''; fMin.value=''; render(); });
 render();
+
+// "UN CAMBIO CADA X DÍAS" y "SIN CAMBIOS" — ambos en vivo, recalculados cada segundo contra la hora actual.
+// Actualizar ÚLTIMO_CAMBIO (fecha y hora) cada vez que se agregue una salida nueva a D.
+const INICIO_GOBIERNO=new Date(2026,2,11); // 11 mar 2026, asunción del gobierno
+const ULTIMO_CAMBIO=new Date(2026,7,14,21,0,0); // 14 ago 2026, 21:00 — renuncia delegado Chañaral
+const totalCambios=D.filter(d=>d.sk>0).length;
+function tickCounter(){
+  const now=new Date();
+
+  const diasGobierno=(now-INICIO_GOBIERNO)/86400000;
+  document.getElementById('avgDias').textContent=(diasGobierno/totalCambios).toFixed(1).replace('.',',');
+
+  const diff=Math.max(0, now-ULTIMO_CAMBIO);
+  const totalSec=Math.floor(diff/1000);
+  const totalMin=Math.floor(totalSec/60);
+  document.getElementById('cDays').textContent=Math.floor(totalMin/1440);
+  document.getElementById('cHours').textContent=String(Math.floor((totalMin%1440)/60)).padStart(2,'0');
+  document.getElementById('cMins').textContent=String(totalMin%60).padStart(2,'0');
+  document.getElementById('cSecs').textContent=String(totalSec%60).padStart(2,'0');
+}
+tickCounter();
+setInterval(tickCounter, 1000);
 
 // TIMELINE
 const tl=document.getElementById('timeline');
 tl.innerHTML=D.filter(d=>d.sk>0).map(d=>`
   <div class="ev ${d.jud?'jud':''}">
     <div class="d">${d.fecha}</div>
-    <div class="h">${d.n} · ${cargoLabel(d)}${d.tipo==='Seremi'?' de '+d.min:' · '+d.min}</div>
-    <div class="m">${d.terr} — ${d.razon}</div>
+    <div class="h">${d.n} · ${cargoLabel(d)}${d.tipo==='Seremi'?' de '+(d.minLabel||d.min):' · '+(d.minLabel||d.min)}</div>
+    <div class="m">${d.terrLabel||d.terr} — ${d.razon}</div>
   </div>`).join('');
 </script>
 </body>
