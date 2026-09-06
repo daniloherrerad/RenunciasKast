@@ -162,10 +162,15 @@
   .byline a{color:var(--mid);text-decoration:underline;text-underline-offset:2px}
   .byline a:hover{color:var(--indigo)}
 
+  .mbr{display:none}
+  .nowrap{white-space:nowrap}
+
   @media(max-width:720px){
     .tracker{padding:22px 20px 32px}
     .brandrow{flex-wrap:wrap}
     .tracker .strip{display:grid;grid-template-columns:repeat(3,1fr);gap:20px 14px}
+    .mbr{display:inline}
+    .tracker .cap{font-size:14.5px}
   }
 </style>
 </head>
@@ -185,7 +190,7 @@
     </div>
     <div class="sh-meta">
       <div><b>Fuente</b> Prensa</div>
-      <div><b>Actualización</b> 3 sep 2026</div>
+      <div><b>Actualización</b> 5 sep 2026</div>
     </div>
   </div>
 </header>
@@ -194,15 +199,15 @@
 <header class="hero">
   <div class="wrap">
     <div class="tracker">
-      <div class="meta">Actualizado al 3 de septiembre de 2026</div>
+      <div class="meta">Actualizado al 5 de septiembre de 2026</div>
       <div class="big">45</div>
-      <div class="cap">autoridades que dejaron su cargo en el gobierno de Kast</div>
+      <div class="cap">autoridades que dejaron su cargo<br class="mbr"> en el gobierno de José Antonio Kast</div>
       <div class="strip">
         <div><div class="sn">3</div><div class="sl">ministras</div></div>
         <div><div class="sn">6</div><div class="sl">subsecretarios</div></div>
         <div><div class="sn">35</div><div class="sl">seremis</div></div>
         <div><div class="sn">1</div><div class="sl">delegado provincial</div></div>
-        <div><div class="sn" id="avgDias">—</div><div class="sl">días de gobierno por salida</div></div>
+        <div><div class="sn" id="avgDias">—</div><div class="sl"><span class="nowrap">días de gobierno</span><br class="mbr"> por salida</div></div>
       </div>
     </div>
     <div class="changetracker">
@@ -213,7 +218,7 @@
         <div class="ct-cell"><div class="ct-n" id="cMins">00</div><div class="ct-l">min</div></div>
         <div class="ct-cell"><div class="ct-n" id="cSecs">00</div><div class="ct-l">seg</div></div>
       </div>
-      <div class="ct-note">Desde la renuncia del seremi de Vivienda de Tarapacá, 3 sep 08:00</div>
+      <div class="ct-note"><span class="nowrap">Desde la renuncia del seremi de Vivienda de Tarapacá,</span><br class="mbr"> 3 sep 08:00</div>
     </div>
     <p class="method">Incluye renuncias, remociones, cambios de puesto y nombramientos que no llegaron a concretarse. Cada caso enlaza a una fuente de prensa.</p>
   </div>
