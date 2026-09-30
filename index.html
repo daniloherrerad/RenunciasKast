@@ -222,7 +222,7 @@
         <div class="ct-cell"><div class="ct-n" id="cMins">00</div><div class="ct-l">min</div></div>
         <div class="ct-cell"><div class="ct-n" id="cSecs">00</div><div class="ct-l">seg</div></div>
       </div>
-      <div class="ct-note"><span class="nowrap">Desde las renuncias del seremi de Vivienda y la seremi de Desarrollo Social de la RM,</span><br class="mbr"> 30 de septiembre a las 10:00 hrs.</div>
+      <div class="ct-note"><span class="nowrap">Desde la renuncia del seremi de Economía de O'Higgins,</span><br class="mbr"> 30 de septiembre a las 17:40 hrs.</div>
     </div>
     <p class="method">Incluye renuncias, remociones, cambios de puesto y nombramientos que no llegaron a concretarse. Cada caso enlaza a una fuente de prensa.</p>
   </div>
@@ -474,7 +474,7 @@ render();
 // "UN CAMBIO CADA X DÍAS" y "SIN CAMBIOS" — ambos en vivo, recalculados cada segundo contra la hora actual.
 // Actualizar ÚLTIMO_CAMBIO (fecha y hora) cada vez que se agregue una salida nueva a D.
 const INICIO_GOBIERNO=new Date(2026,2,11); // 11 mar 2026, asunción del gobierno
-const ULTIMO_CAMBIO=new Date(2026,8,30,10,0,0); // 30 sep 2026, 10:00 — renuncia seremi de Vivienda, RM (Durán, Desarrollo Social, es efectiva recién el 1 oct)
+const ULTIMO_CAMBIO=new Date(2026,8,30,17,40,0); // 30 sep 2026, 17:40 — renuncia seremi de Economía, O'Higgins
 const totalCambios=D.filter(d=>d.sk>0).length;
 function tickCounter(){
   const now=new Date();
