@@ -193,7 +193,7 @@
     </div>
     <div class="sh-meta">
       <div><b>Fuente</b> Prensa</div>
-      <div><b>Actualización</b> 19 oct 2026</div>
+      <div><b>Actualización</b> 21 oct 2026</div>
     </div>
     <a class="sh-cta" href="https://app.reveniu.com/wp/checkout-custom-link/2O59Bc8JlvEC97c2IlGSEKhlH4GQngRX" target="_blank" rel="noopener">Haz tu aporte</a>
   </div>
@@ -203,12 +203,12 @@
 <header class="hero">
   <div class="wrap">
     <div class="tracker">
-      <div class="meta">Actualizado al 19 de octubre de 2026</div>
-      <div class="big">55</div>
+      <div class="meta">Actualizado al 21 de octubre de 2026</div>
+      <div class="big">56</div>
       <div class="cap">autoridades que dejaron su cargo<br class="mbr"> en el gobierno de José Antonio Kast</div>
       <div class="strip">
         <div><div class="sn">3</div><div class="sl">ministras</div></div>
-        <div><div class="sn">6</div><div class="sl">subsecretarios</div></div>
+        <div><div class="sn">7</div><div class="sl">subsecretarios</div></div>
         <div><div class="sn">45</div><div class="sl">seremis</div></div>
         <div><div class="sn">1</div><div class="sl">delegado provincial</div></div>
         <div><div class="sn" id="avgDias">—</div><div class="sl"><span class="nowrap">días de gobierno</span><br class="mbr"> por salida</div></div>
@@ -222,7 +222,7 @@
         <div class="ct-cell"><div class="ct-n" id="cMins">00</div><div class="ct-l">min</div></div>
         <div class="ct-cell"><div class="ct-n" id="cSecs">00</div><div class="ct-l">seg</div></div>
       </div>
-      <div class="ct-note"><span class="nowrap">Desde el anuncio de la renuncia del seremi de Hacienda del Biobío,</span><br class="mbr"> 19 de octubre a las 16:00 hrs. Se hará efectiva el 30 de octubre.</div>
+      <div class="ct-note"><span class="nowrap">Desde la salida del subsecretario de la Segegob,</span><br class="mbr"> 21 de octubre a las 08:00 hrs.</div>
     </div>
     <p class="method">Incluye renuncias, remociones, cambios de puesto y nombramientos que no llegaron a concretarse. Cada caso enlaza a una fuente de prensa.</p>
   </div>
@@ -358,6 +358,7 @@ const D = [
   {n:"Juan Pablo Rodríguez", tipo:"Subsecretario", sexo:"m", terr:"Nacional", min:"Hacienda", fecha:"23 jul", sk:723, jud:false, motivo:"Test de drogas", razon:"Removido tras dar positivo en test de drogas. Niega consumir y presentó un contraexamen negativo de la U. Católica", medio:"La Tercera", url:"https://www.latercera.com/politica/noticia/no-refleja-mi-realidad-exsubsecretario-de-hacienda-afirma-que-no-consume-drogas-y-atribuye-a-un-error-el-test-positivo-que-motivo-su-salida/"},
   {n:"Eduardo Leiva", tipo:"Seremi", terr:"Los Lagos", min:"Culturas", fecha:"22 jul", sk:722, jud:false, motivo:"Test de drogas", razon:"Renunció tras dar positivo en un examen de drogas. Niega consumir y presentó un contraexamen negativo de la U. de Chile", medio:"T13", url:"https://www.t13.cl/noticia/politica/exseremi-culturas-lagos-renuncio-tras-dar-positivo-examen-drogas-3-8-2026"},
   {n:"Marcelo Vergara", tipo:"Seremi", terr:"Arica y Parinacota", min:"Hacienda", fecha:"17 jul", sk:717, jud:false, motivo:"Test de drogas", razon:"Renuncia voluntaria, en medio de dudas por su test de drogas. Hacienda confirmó que dio positivo, pero se negó a entregar el informe completo", medio:"El Mostrador", url:"https://www.elmostrador.cl/aqui-arica/2026/09/01/hacienda-confirma-test-positivo-de-drogas-a-exseremi-republicano-pero-no-entrega-resultados/"},
+  {n:"José Francisco Lagos", tipo:"Subsecretario", sexo:"m", terr:"Nacional", min:"Segegob", fecha:"21 oct", sk:1021, jud:false, motivo:"No informadas", razon:"Renunció hace un par de semanas. El Presidente aceptó su renuncia al nombrar a Gonzalo Arenas como subsecretario y vocero. Seguirá colaborando con el mandatario, sin cargo definido", medio:"La Tercera", url:"https://www.latercera.com/politica/noticia/presidente-kast-designa-a-gonzalo-arenas-como-subsecretario-de-la-secretaria-general-de-gobierno/"},
   {n:"Ronald Ruf", tipo:"Seremi", terr:"Biobío", min:"Hacienda", fecha:"30 oct", sk:1030, jud:false, sexo:"m", motivo:"No informadas", razon:"Renuncia voluntaria por motivos personales. Anunciada el 19 de octubre", medio:"Diario Concepción", url:"https://www.diarioconcepcion.cl/politica/2026/10/19/renuncia-seremi-de-hacienda-biobio.html"},
   {n:"Rodrigo Aguilera", tipo:"Seremi", terr:"Aysén", min:"Economía", fecha:"1 nov", sk:1101, jud:false, sexo:"m", motivo:"No informadas", razon:"Renuncia voluntaria por motivos personales. Anunciada el 18 de octubre", medio:"Ministerio de Economía", url:"https://www.economia.gob.cl/2026/10/18/comunicado-de-prensa-3.htm"},
   {n:"David Plaza", tipo:"Seremi", terr:"Araucanía", min:"Obras Públicas", fecha:"6 oct", sk:1006, jud:false, sexo:"m", motivo:"No informadas", razon:"Renuncia pedida por el Gobierno, sin motivo público detallado", medio:"ADN Radio", url:"https://www.adnradio.cl/2026/10/06/nueva-salida-en-el-gobierno-solicitan-la-renuncia-de-david-plaza-seremi-del-mop-de-la-araucania/"},
@@ -477,7 +478,7 @@ render();
 // "UN CAMBIO CADA X DÍAS" y "SIN CAMBIOS" — ambos en vivo, recalculados cada segundo contra la hora actual.
 // Actualizar ÚLTIMO_CAMBIO (fecha y hora) cada vez que se agregue una salida nueva a D.
 const INICIO_GOBIERNO=new Date(2026,2,11); // 11 mar 2026, asunción del gobierno
-const ULTIMO_CAMBIO=new Date(2026,9,19,16,0,0); // 19 oct 2026, 16:00 — anuncio renuncia seremi de Hacienda, Biobío (efectiva el 30 oct)
+const ULTIMO_CAMBIO=new Date(2026,9,21,8,0,0); // 21 oct 2026, 08:00 — salida subsecretario Segegob (Lagos)
 const totalCambios=D.filter(d=>d.sk>0).length;
 function tickCounter(){
   const now=new Date();
