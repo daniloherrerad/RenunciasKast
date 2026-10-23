@@ -193,7 +193,7 @@
     </div>
     <div class="sh-meta">
       <div><b>Fuente</b> Prensa</div>
-      <div><b>Actualización</b> 21 oct 2026</div>
+      <div><b>Actualización</b> 23 oct 2026</div>
     </div>
     <a class="sh-cta" href="https://app.reveniu.com/wp/checkout-custom-link/2O59Bc8JlvEC97c2IlGSEKhlH4GQngRX" target="_blank" rel="noopener">Haz tu aporte</a>
   </div>
@@ -203,13 +203,13 @@
 <header class="hero">
   <div class="wrap">
     <div class="tracker">
-      <div class="meta">Actualizado al 21 de octubre de 2026</div>
-      <div class="big">56</div>
+      <div class="meta">Actualizado al 23 de octubre de 2026</div>
+      <div class="big">57</div>
       <div class="cap">autoridades que dejaron su cargo<br class="mbr"> en el gobierno de José Antonio Kast</div>
       <div class="strip">
         <div><div class="sn">3</div><div class="sl">ministras</div></div>
         <div><div class="sn">7</div><div class="sl">subsecretarios</div></div>
-        <div><div class="sn">45</div><div class="sl">seremis</div></div>
+        <div><div class="sn">46</div><div class="sl">seremis</div></div>
         <div><div class="sn">1</div><div class="sl">delegado provincial</div></div>
         <div><div class="sn" id="avgDias">—</div><div class="sl"><span class="nowrap">días de gobierno</span><br class="mbr"> por salida</div></div>
       </div>
@@ -222,7 +222,7 @@
         <div class="ct-cell"><div class="ct-n" id="cMins">00</div><div class="ct-l">min</div></div>
         <div class="ct-cell"><div class="ct-n" id="cSecs">00</div><div class="ct-l">seg</div></div>
       </div>
-      <div class="ct-note"><span class="nowrap">Desde la salida del subsecretario de la Segegob,</span><br class="mbr"> 21 de octubre a las 08:00 hrs.</div>
+      <div class="ct-note"><span class="nowrap">Desde la renuncia del seremi de Bienes Nacionales de Arica y Parinacota,</span><br class="mbr"> 23 de octubre a las 15:08 hrs.</div>
     </div>
     <p class="method">Incluye renuncias, remociones, cambios de puesto y nombramientos que no llegaron a concretarse. Cada caso enlaza a una fuente de prensa.</p>
   </div>
@@ -360,6 +360,7 @@ const D = [
   {n:"Marcelo Vergara", tipo:"Seremi", terr:"Arica y Parinacota", min:"Hacienda", fecha:"17 jul", sk:717, jud:false, motivo:"Test de drogas", razon:"Renuncia voluntaria, en medio de dudas por su test de drogas. Hacienda confirmó que dio positivo, pero se negó a entregar el informe completo", medio:"El Mostrador", url:"https://www.elmostrador.cl/aqui-arica/2026/09/01/hacienda-confirma-test-positivo-de-drogas-a-exseremi-republicano-pero-no-entrega-resultados/"},
   {n:"José Francisco Lagos", tipo:"Subsecretario", sexo:"m", terr:"Nacional", min:"Segegob", fecha:"21 oct", sk:1021, jud:false, motivo:"No informadas", razon:"El Presidente aceptó su renuncia al nombrar a Gonzalo Arenas como nuevo subsecretario", medio:"La Tercera", url:"https://www.latercera.com/politica/noticia/presidente-kast-designa-a-gonzalo-arenas-como-subsecretario-de-la-secretaria-general-de-gobierno/"},
   {n:"Ronald Ruf", tipo:"Seremi", terr:"Biobío", min:"Hacienda", fecha:"19 oct", sk:1019, jud:false, sexo:"m", motivo:"No informadas", razon:"Renuncia voluntaria por motivos personales. Se hará efectiva el 30 de octubre", medio:"Diario Concepción", url:"https://www.diarioconcepcion.cl/politica/2026/10/19/renuncia-seremi-de-hacienda-biobio.html"},
+  {n:"Cristian Pradenas", tipo:"Seremi", terr:"Arica y Parinacota", min:"Bienes Nacionales", fecha:"23 oct", sk:1023, jud:false, sexo:"m", motivo:"No informadas", razon:"Renuncia confirmada, sin motivo público detallado", medio:"ADN Radio", url:"https://www.adnradio.cl/2026/10/23/nueva-renuncia-en-el-gobierno-de-kast-seremi-de-bienes-nacionales-de-arica-y-parinacota-deja-su-cargo/"},
   {n:"Rodrigo Aguilera", tipo:"Seremi", terr:"Aysén", min:"Economía", fecha:"18 oct", sk:1018, jud:false, sexo:"m", motivo:"No informadas", razon:"Renuncia voluntaria por motivos personales. Se hará efectiva el 1 de noviembre", medio:"Ministerio de Economía", url:"https://www.economia.gob.cl/2026/10/18/comunicado-de-prensa-3.htm"},
   {n:"David Plaza", tipo:"Seremi", terr:"Araucanía", min:"Obras Públicas", fecha:"6 oct", sk:1006, jud:false, sexo:"m", motivo:"No informadas", razon:"Renuncia pedida por el Gobierno, sin motivo público detallado", medio:"ADN Radio", url:"https://www.adnradio.cl/2026/10/06/nueva-salida-en-el-gobierno-solicitan-la-renuncia-de-david-plaza-seremi-del-mop-de-la-araucania/"},
   {n:"Juan Carlos Meléndez", tipo:"Seremi", terr:"O'Higgins", min:"Economía", fecha:"30 sep", sk:930, jud:false, sexo:"m", motivo:"Cuestionamiento de gestión", razon:"Renuncia confirmada por el Ministerio de Economía tras una evaluación negativa de su gestión, en medio de las altas cifras de desempleo de la región. El 21 de septiembre la delegada presidencial había desmentido su salida", medio:"El Rancagüino", url:"https://www.elrancaguino.cl/2026/09/30/seremi-de-economia-en-ohiggins-renuncia-al-cargo/"},
@@ -478,7 +479,7 @@ render();
 // "UN CAMBIO CADA X DÍAS" y "SIN CAMBIOS" — ambos en vivo, recalculados cada segundo contra la hora actual.
 // Actualizar ÚLTIMO_CAMBIO (fecha y hora) cada vez que se agregue una salida nueva a D.
 const INICIO_GOBIERNO=new Date(2026,2,11); // 11 mar 2026, asunción del gobierno
-const ULTIMO_CAMBIO=new Date(2026,9,21,8,0,0); // 21 oct 2026, 08:00 — salida subsecretario Segegob (Lagos)
+const ULTIMO_CAMBIO=new Date(2026,9,23,15,8,0); // 23 oct 2026, 15:08 — renuncia seremi de Bienes Nacionales, Arica y Parinacota
 const totalCambios=D.filter(d=>d.sk>0).length;
 function tickCounter(){
   const now=new Date();
