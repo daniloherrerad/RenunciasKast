@@ -350,11 +350,7 @@
       <h2>Otros proyectos de Danilo Herrera</h2>
       <p>Monitoreo del gobierno de José Antonio Kast.</p>
     </div>
-    <button id="projToggle" class="builder-toggle" aria-expanded="false" aria-controls="projBody" style="margin-top:18px">
-      <span id="projToggleTxt">Ver proyectos</span>
-      <svg class="bt-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
-    </button>
-    <div id="projBody" hidden>
+    <div id="projBody">
       <div class="proj-grid">
         <a class="proj" href="https://liberadoskast.cl" target="_blank" rel="noopener"><b>Liberados Kast</b><span>Registro de las rebajas de condena concedidas bajo el ministro Rabat en el gobierno de José Antonio Kast.</span><i>liberadoskast.cl</i></a>
         <a class="proj" href="https://presupuestokast.cl" target="_blank" rel="noopener"><b>Presupuesto Kast</b><span>Análisis comparativo del Presupuesto 2027 de José Antonio Kast.</span><i>presupuestokast.cl</i></a>
@@ -537,13 +533,6 @@ builderToggle.addEventListener('click', ()=>{
   const show=builderBody.hidden;
   builderBody.hidden=!show;
   builderToggle.setAttribute('aria-expanded', show?'true':'false');
-});
-const projToggle=document.getElementById('projToggle'), projBody=document.getElementById('projBody'), projToggleTxt=document.getElementById('projToggleTxt');
-projToggle.addEventListener('click', ()=>{
-  const show=projBody.hidden;
-  projBody.hidden=!show;
-  projToggle.setAttribute('aria-expanded', show?'true':'false');
-  projToggleTxt.textContent=show?'Ocultar proyectos':'Ver proyectos';
 });
 const selTipo=new Set(), selReg=new Set(), selMin=new Set(), selMotivo=new Set();
 const pillsRegEl=document.getElementById('pillsReg'), pillsMinEl=document.getElementById('pillsMin'), pillsMotivoEl=document.getElementById('pillsMotivo');
