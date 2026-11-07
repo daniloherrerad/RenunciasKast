@@ -292,6 +292,11 @@
       <h2>Todas las salidas</h2>
       <p>Filtra por cargo, región o ministerio, o busca por nombre.</p>
     </div>
+    <button id="tblToggle" class="builder-toggle" aria-expanded="false" aria-controls="tblBody" style="margin-top:18px">
+      <span id="tblToggleTxt">Ver todas las salidas</span>
+      <svg class="bt-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+    </button>
+    <div id="tblBody" hidden>
     <div class="panel">
       <div class="controls">
         <input type="search" id="q" placeholder="Buscar por nombre, región o ministerio…" aria-label="Buscar">
@@ -328,6 +333,7 @@
       </div>
       <div class="count-row" id="countRow"></div>
     </div>
+    </div>
   </div>
 </section>
 
@@ -339,7 +345,13 @@
       <h2>Línea de tiempo</h2>
       <p>De la salida más reciente a la primera, con la fecha y el motivo de cada una.</p>
     </div>
-    <div class="tl" id="timeline"></div>
+    <button id="tlToggle" class="builder-toggle" aria-expanded="false" aria-controls="tlBody" style="margin-top:18px">
+      <span id="tlToggleTxt">Ver línea de tiempo</span>
+      <svg class="bt-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+    </button>
+    <div id="tlBody" hidden>
+      <div class="tl" id="timeline"></div>
+    </div>
   </div>
 </section>
 
@@ -534,6 +546,19 @@ builderToggle.addEventListener('click', ()=>{
   builderBody.hidden=!show;
   builderToggle.setAttribute('aria-expanded', show?'true':'false');
 });
+// Secciones largas: cerradas por defecto, con botón para abrirlas
+function bindSecToggle(btnId, bodyId, txtId, nombre){
+  const btn=document.getElementById(btnId), body=document.getElementById(bodyId), txt=document.getElementById(txtId);
+  const setOpen=show=>{
+    body.hidden=!show;
+    btn.setAttribute('aria-expanded', show?'true':'false');
+    txt.textContent=(show?'Ocultar ':'Ver ')+nombre;
+  };
+  btn.addEventListener('click', ()=>setOpen(body.hidden));
+  return setOpen;
+}
+const openTabla=bindSecToggle('tblToggle','tblBody','tblToggleTxt','todas las salidas');
+bindSecToggle('tlToggle','tlBody','tlToggleTxt','línea de tiempo');
 const selTipo=new Set(), selReg=new Set(), selMin=new Set(), selMotivo=new Set();
 const pillsRegEl=document.getElementById('pillsReg'), pillsMinEl=document.getElementById('pillsMin'), pillsMotivoEl=document.getElementById('pillsMotivo');
 const bdCount=document.getElementById('bdCount'), bdList=document.getElementById('bdList'), bdClear=document.getElementById('bdClear');
@@ -589,6 +614,7 @@ bdList.addEventListener('click', e=>{
   q.value=''; fTipo.value=''; fMin.value=''; buildRegions(); fReg.value=''; render();
   const row=document.getElementById('case-'+a.dataset.id);
   if(!row) return;
+  openTabla(true);
   row.scrollIntoView({behavior:'smooth', block:'center'});
   row.classList.add('flash');
   setTimeout(()=>row.classList.remove('flash'), 1600);
