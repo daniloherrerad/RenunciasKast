@@ -164,6 +164,13 @@
   .byline{font-family:'Space Mono',monospace;font-size:12px;color:var(--mid);margin-top:6px}
   .byline a{color:var(--mid);text-decoration:underline;text-underline-offset:2px}
   .byline a:hover{color:var(--indigo)}
+  .proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+  .proj{display:flex;flex-direction:column;gap:8px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px 22px;text-decoration:none;color:var(--ink);transition:.15s}
+  .proj:hover{border-color:var(--indigo)}
+  .proj b{font-family:'Archivo Narrow',system-ui,sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.02em;font-size:20px;line-height:1;color:var(--indigo)}
+  .proj span{font-size:14px;color:#4a4370;flex:1}
+  .proj i{font-family:'Space Mono',monospace;font-style:normal;font-size:12px;color:var(--mid)}
+  @media(max-width:720px){.proj-grid{grid-template-columns:1fr}}
 
   .mbr{display:none}
   .nowrap{white-space:nowrap}
@@ -333,6 +340,21 @@
       <p>De la salida más reciente a la primera, con la fecha y el motivo de cada una.</p>
     </div>
     <div class="tl" id="timeline"></div>
+  </div>
+</section>
+
+<section id="proyectos">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Más proyectos</div>
+      <h2>Otros proyectos de Danilo Herrera</h2>
+      <p>Monitoreo del gobierno de José Antonio Kast.</p>
+    </div>
+    <div class="proj-grid">
+      <a class="proj" href="https://liberadoskast.cl" target="_blank" rel="noopener"><b>Liberados Kast</b><span>Registro de las rebajas de condena concedidas bajo el ministro Rabat en el gobierno de José Antonio Kast.</span><i>liberadoskast.cl</i></a>
+      <a class="proj" href="https://presupuestokast.cl" target="_blank" rel="noopener"><b>Presupuesto Kast</b><span>Análisis comparativo del Presupuesto 2027 de José Antonio Kast.</span><i>presupuestokast.cl</i></a>
+      <a class="proj" href="https://recorteshacienda.cl" target="_blank" rel="noopener"><b>Recortes Hacienda</b><span>Monitoreo de los decretos de modificación presupuestaria del gobierno.</span><i>recorteshacienda.cl</i></a>
+    </div>
   </div>
 </section>
 
